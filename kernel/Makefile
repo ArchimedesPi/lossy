@@ -14,7 +14,6 @@ PLATFORMS= `find ./arch/ -type d | sed "s/.*\///" | sort`
 all: $(KERNEL)
 
 $(KERNEL): $(OBJS)
-	@echo $(OBJS)
 	$(LD) $(LDFLAGS) -o $@ $^
 
 help:
