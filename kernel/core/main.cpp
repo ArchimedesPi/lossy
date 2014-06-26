@@ -123,7 +123,7 @@ void terminal_writestring(const char* data)
 #if defined(__cplusplus)
 extern "C" /* Use C linkage for kernel_main. */
 #endif
-void main()
+void kmain()
 {
 	terminal_initialize();
 	/* Since there is no support for newlines in terminal_putchar yet, \n will

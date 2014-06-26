@@ -1,9 +1,8 @@
-KERN_ARCH=x86
-ARCH=i686-elf
+ARCH=x86
 KERNEL=lossy.elf
 INCLUDEDIR= -I. -I./core -I./arch/$(KERN_ARCH)
 
-include ./arch/$(KERN_ARCH)/config.make
+include ./arch/$(ARCH)/config.make
 
 include ./core/Makefile
 include ./arch/$(ARCH)/Makefile
@@ -15,7 +14,8 @@ PLATFORMS= `find ./arch/ -type d | sed "s/.*\///" | sort`
 all: $(KERNEL)
 
 $(KERNEL): $(OBJS)
-	# stuff
+	@echo $(OBJS)
+	$(LD) $(LDFLAGS) -o $@ $^
 
 help:
 	@echo "Lossy Kernel Makefile"
@@ -25,8 +25,12 @@ help:
 	@echo $(PLATFORMS)
 	@echo
 
+
 %.o: %.cpp
 	$(CPP) -c $< -o $@ $(CPPFLAGS)
 
-%.o: %.s
+%.o: %.asm
 	$(ASM) $(ASMFLAGS) $< -o $@
+
+clean:
+	rm -f $(OBJS) $(KERNEL)

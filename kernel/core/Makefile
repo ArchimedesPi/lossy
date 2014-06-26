@@ -1,0 +1,1 @@
+OBJS:= $(OBJS) core/main.o
