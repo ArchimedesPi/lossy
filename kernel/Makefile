@@ -33,3 +33,6 @@ help:
 
 clean:
 	rm -f $(OBJS) $(KERNEL)
+
+run:
+	cd .. && ./diskimage.sh && ./qemu.sh

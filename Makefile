@@ -1,6 +1,6 @@
 help:
 	@echo "Makefile for building Lossy"
-	@echo "Usage: make [ all | clean | build | run | run ]"
+	@echo "Usage: make [ all | clean | build | run ]"
 	@echo ""
 	@echo
 
