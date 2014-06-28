@@ -1,6 +1,6 @@
 ARCH=x86
 KERNEL=lossy.elf
-INCLUDEDIR= -I. -I./core -I./arch/$(KERN_ARCH)
+INCDIR= -I. -I./core -I./arch/$(ARCH)
 
 include ./arch/$(ARCH)/config.make
 
@@ -14,6 +14,7 @@ PLATFORMS= `find ./arch/ -type d | sed "s/.*\///" | sort`
 all: $(KERNEL)
 
 $(KERNEL): $(OBJS)
+	@echo $(OBJS)
 	$(LD) $(LDFLAGS) -o $@ $^
 
 help:

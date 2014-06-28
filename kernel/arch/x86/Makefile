@@ -1,1 +1,1 @@
-OBJS:= $(OBJS) arch/$(ARCH)/boot.o
+OBJS:= $(OBJS) arch/$(ARCH)/boot.o arch/$(ARCH)/io.o
