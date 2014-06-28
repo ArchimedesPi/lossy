@@ -42,4 +42,4 @@ install:
 	sync
 
 run:
-	../helpers/qemu.sh lossy.img
+	../helpers/qemu.sh ../lossy.img
