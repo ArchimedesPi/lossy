@@ -4,13 +4,15 @@ help:
 	@echo ""
 	@echo
 
-all:
+all: build
+
+build:
 	@echo "Building Kernel"
 	make -C ./kernel
 
 run:
 	@echo "Running [dev] OS in QEMU"
-	# Nothing yet
+	helpers/qemu.sh lossy.img
 
 clean:
 	make -C ./kernel clean

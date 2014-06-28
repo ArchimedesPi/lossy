@@ -34,5 +34,12 @@ help:
 clean:
 	rm -f $(OBJS) $(KERNEL)
 
+copy:
+	cp lossy.elf ../hdfiles/boot/lossy.elf
+
+install:
+	cp -r ../hdfiles/* /mnt
+	sync
+
 run:
-	cd .. && ./diskimage.sh && ./qemu.sh
+	../helpers/qemu.sh lossy.img
