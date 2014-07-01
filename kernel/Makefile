@@ -4,8 +4,10 @@ INCDIR= -I. -I./core -I./arch/$(ARCH)
 
 include ./arch/$(ARCH)/config.make
 
+include ./runtime/Makefile
 include ./core/Makefile
 include ./arch/$(ARCH)/Makefile
+
 
 CPPFLAGS := $(CPPFLAGS) -ffreestanding -O2 -Wall -Wextra
 ASMFLAGS := $(ASMFLAGS)

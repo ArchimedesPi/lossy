@@ -1,4 +1,11 @@
-#include "io.h"
+#include <os.h>
+
+int strlen(const char *str) {
+	int ret = 0;
+	while ( str[ret] != 0 )
+		ret++;
+	return ret;
+}
 
 ////////
 // Constructor
@@ -21,21 +28,21 @@ size_t VGATerminal::getY() {
 }
 
 // Setters
-void VGATerminal::setX(_x) {
+void VGATerminal::setX(size_t _x) {
 	cursorX = _x;
 }
 
-void VGATerminal::setY(_y) {
+void VGATerminal::setY(size_t _y) {
 	cursorY = _y;
 }
 
-void VGATerminal::setCursor(_x, _y) {
+void VGATerminal::setCursor(size_t _x, size_t _y) {
 	cursorX = _x;
 	cursorY = _y;
 }
 
 // Really low level - Returns a VGA entry
-uint8_t VGATerminal::make_vga_entry(char c, uint8_t color) {
+uint16_t VGATerminal::make_vga_entry(char c, uint8_t color) {
 	uint16_t c16 = c;
 	uint16_t color16 = color;
 	return c16 | color16 << 8;
@@ -85,8 +92,8 @@ void VGATerminal::putc(char c) {
 }
 
 void VGATerminal::puts(const char* data) {
-	size_t datalen = strlen(data);
-	for (size_t i = 0; i < datalen; i++) {
+	int datalen = strlen(data);
+	for (int i = 0; i < datalen; i++) {
 		putc(data[i]);
 	}
 }

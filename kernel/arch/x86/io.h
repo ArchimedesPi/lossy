@@ -11,6 +11,7 @@
 #define VGARAM 0xB8000
 #define SCREENSIZE 0xFA0
 
+
 class VGATerminal {
 public:
 	// Constants
@@ -51,7 +52,7 @@ public:
 	
 	// Low level control
 	void clear(); // Clearing
-	void putat(char c, uint8_t color, size_t x, size_t y); // Put char at location in color
+	void putat(char c, uint8_t color); // Put char at cursor in color
 	
 	// Low level accessors
 	size_t getX();

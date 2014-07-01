@@ -1,0 +1,1 @@
+OBJS:= $(OBJS) runtime/string.o
