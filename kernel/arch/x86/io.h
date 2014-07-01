@@ -9,6 +9,7 @@
 #include <stdint.h>
 
 #define VGARAM 0xB8000
+#define SCREENSIZE 0xFA0
 
 class VGATerminal {
 public:
@@ -56,6 +57,12 @@ public:
 	size_t getX();
 	size_t getY();
 
+	// Low level setters
+	void setX(_x);
+	void setY(_y);
+	
+	void setCursor(_x, y);
+
 
 	// High level stuff
 	void putc(char c);
@@ -63,15 +70,15 @@ public:
 private:
 	//////////
 	// Private stuff. They don't need to see it!
-	size_t x; // Cursor x
-	size_t y; // Cursor y
+	size_t cursorX; // Cursor x
+	size_t cursorY; // Cursor y
 	uint8_t colors; // Background and foreground colors for the screen
 	
 	// VGA buffer [text mode]
 	uint16_t* buffer;
 	
 	// Really low level stuff
-	uint8_t make_vga_entry(char c, uint8_t color); // This one returns a proper VGA entry
+	uint16_t make_vga_entry(char c, uint8_t color); // This one returns a proper VGA entry
 };
 
 // Close fence

@@ -1,18 +1,10 @@
 #include "io.h"
 
-size_t strlen(const char* str)
-{
-	size_t ret = 0;
-	while ( str[ret] != 0 )
-		ret++;
-	return ret;
-}
-
 ////////
 // Constructor
 VGATerminal::VGATerminal() {
-	y = 0;
-	x = 0;
+	cursorY = 0;
+	cursorX = 0;
 	buffer = (uint16_t*) 0xB8000;
 }
 
@@ -21,11 +13,25 @@ VGATerminal::VGATerminal() {
 
 // Getters
 size_t VGATerminal::getX() {
-	return x;
+	return cursorX;
 }
 
 size_t VGATerminal::getY() {
-	return y;
+	return cursorY;
+}
+
+// Setters
+void VGATerminal::setX(_x) {
+	cursorX = _x;
+}
+
+void VGATerminal::setY(_y) {
+	cursorY = _y;
+}
+
+void VGATerminal::setCursor(_x, _y) {
+	cursorX = _x;
+	cursorY = _y;
 }
 
 // Really low level - Returns a VGA entry
@@ -48,27 +54,32 @@ uint8_t VGATerminal::make_color(enum Color fg, enum Color bg) {
 
 // Clear the display
 void VGATerminal::clear() {
-	for ( size_t y = 0; y < vga_height; y++ ) {
-		for ( size_t x = 0; x < vga_width; x++) {
-			const size_t index = y * vga_width + x;
-			buffer[index] = make_vga_entry(' ', colors);
+	// Oh. Have to reset the darn cursor
+	cursorX = 0;
+	cursorY = 0;
+	// This breaks *something*, i'm not sure what yet. Maybe it doesn't init the colors? [C++ NOOB]
+	//memcpy((uint16_t*)VGARAM, 0, SCREENSIZE); Commented until further notice ;)
+
+	for (; cursorX < vga_width; cursorX++) {
+		for (; cursorY < vga_height; cursorY++) {
+			putat(' ', colors); // Yeah, slow. But it works!
 		}
 	}
 }
 
 
-// Put a single char at a location in a color
-void VGATerminal::putat(char c, uint8_t color, size_t x, size_t y) {
-	const size_t index = y * vga_width + x;
+// Put a single char at the cursor location in a color
+void VGATerminal::putat(char c, uint8_t color) {
+	const size_t index = cursorY * vga_width + cursorX;
 	buffer[index] = make_vga_entry(c, color);
 }
 
 void VGATerminal::putc(char c) {
-	putat(c, colors, x, y);
-	if (++x == vga_width) {
-		x = 0;
-		if (++y == vga_height) {
-			y = 0;
+	putat(c, colors);
+	if (++cursorX == vga_width) {
+		cursorX = 0;
+		if (++cursorY == vga_height) {
+			cursorY = 0;
 		}
 	}
 }
