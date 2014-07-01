@@ -58,10 +58,10 @@ public:
 	size_t getY();
 
 	// Low level setters
-	void setX(_x);
-	void setY(_y);
-	
-	void setCursor(_x, y);
+	void setX(size_t _x);
+	void setY(size_t _y);
+
+	void setCursor(size_t _x, size_t _y);
 
 
 	// High level stuff
