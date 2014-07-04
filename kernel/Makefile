@@ -9,15 +9,17 @@ include ./core/Makefile
 include ./arch/$(ARCH)/Makefile
 
 
-CPPFLAGS := $(CPPFLAGS) -ffreestanding -O2 -Wall -Wextra
+CPPFLAGS := $(CPPFLAGS)
 ASMFLAGS := $(ASMFLAGS)
 PLATFORMS= `find ./arch/ -type d | sed "s/.*\///" | sort`
 
 all: $(KERNEL)
 
 $(KERNEL): $(OBJS)
-	@echo $(OBJS)
 	$(LD) $(LDFLAGS) -o $@ $^
+
+objs:
+	@echo $(OBJS)
 
 help:
 	@echo "Lossy Kernel Makefile"
