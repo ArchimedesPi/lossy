@@ -65,13 +65,14 @@ void VGATerminal::clear() {
 	cursorX = 0;
 	cursorY = 0;
 	// This breaks *something*, i'm not sure what yet. Maybe it doesn't init the colors? [C++ NOOB]
-	//memcpy((uint16_t*)VGARAM, 0, SCREENSIZE); Commented until further notice ;)
+	//memcpy((uint16_t*)VGARAM, 0, SCREENSIZE);
 
-	/*for (; cursorX < vga_width; cursorX++) {
-		for (; cursorY < vga_height; cursorY++) {
-			putat(' ', colors); // Yeah, slow. But it works!
+	for (size_t i = 0; i < vga_width; i++) {
+		for (size_t j = 0; j < vga_width; i++) {
+			setCursor(i, j);
+			putat('a', colors);
 		}
-	}*/
+	}
 }
 
 

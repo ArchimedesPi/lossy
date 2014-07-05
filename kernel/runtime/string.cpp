@@ -20,6 +20,7 @@ int strcmp(const char *dst, char *src) {
 	return 1;
 }
 
-	//void strcat(void *dest,const void *src) {
-	//	memcpy((char*)((int)dest+(int)strlen((char*)dest)),(char*)src,strlen((char*)src));
-	//}
+extern "C"
+void strcat(void *dest,const void *src) {
+	memcpy((char*)((int)dest+(int)strlen((char*)dest)),(char*)src,strlen((char*)src));
+}

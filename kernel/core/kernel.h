@@ -3,6 +3,7 @@
 
 // Runtimes
 #include <runtime/string.h>
+#include <runtime/memory.h>
 
 // libGCC
 #include <stddef.h>

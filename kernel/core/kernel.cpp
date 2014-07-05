@@ -7,7 +7,8 @@
 extern "C"
 void kmain() {
 	VGATerminal terminal = VGATerminal();
-	terminal.setColors(VGATerminal::LightGrey, VGATerminal::Black);
-	terminal.clear();
-	terminal.putc('!');
+	terminal.setColors(VGATerminal::LightMagenta, VGATerminal::LightCyan);
+	//terminal.clear();
+	terminal.setCursor(0,0);
+	terminal.puts("Hello world(s)!");
 }

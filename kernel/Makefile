@@ -48,3 +48,6 @@ install:
 
 run:
 	../helpers/qemu.sh ../lossy.img
+
+runelf:
+	qemu-system-i386 -kernel $(KERNEL)
