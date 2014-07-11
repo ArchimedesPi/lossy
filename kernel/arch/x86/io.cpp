@@ -68,9 +68,9 @@ void VGATerminal::clear() {
 	//memcpy((uint16_t*)VGARAM, 0, SCREENSIZE);
 
 	for (size_t i = 0; i < vga_width; i++) {
-		for (size_t j = 0; j < vga_width; i++) {
+		for (size_t j = 0; j < vga_height; j++) {
 			setCursor(i, j);
-			putat('a', colors);
+			putat(' ', colors);
 		}
 	}
 }

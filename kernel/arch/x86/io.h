@@ -65,15 +65,18 @@ public:
 	void setCursor(size_t _x, size_t _y);
 
 
+	void this_is_a_jump();
+
 	// High level stuff
 	void putc(char c);
 	void puts(const char* data);
+
+	uint8_t colors; // Background and foreground colors for the screen
 private:
 	//////////
 	// Private stuff. They don't need to see it!
 	size_t cursorX; // Cursor x
 	size_t cursorY; // Cursor y
-	uint8_t colors; // Background and foreground colors for the screen
 	
 	// VGA buffer [text mode]
 	uint16_t* buffer;
