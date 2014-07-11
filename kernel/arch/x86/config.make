@@ -8,6 +8,6 @@ ASM=nasm
 LD=$(COMP_ARCH)-gcc
 
 # Flags for the previous
-CPPFLAGS= $(INCDIR) -ffreestanding -O2 -Wall -Wextra
+CPPFLAGS= $(INCDIR) -ffreestanding -O2 -Wall -Wextra -g
 ASMFLAGS= -felf 
 LDFLAGS= -L ./ -T ./arch/$(ARCH)/linker.ld -ffreestanding -O2 -nostdlib -lgcc
