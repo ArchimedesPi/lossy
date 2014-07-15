@@ -2,8 +2,8 @@
 // Does text mode VGA in a "terminal".
 
 // Start the include fence
-#ifndef IO_H
-#define IO_H
+#ifndef VGA_H
+#define VGA_H
 
 #include <stddef.h>
 #include <stdint.h>

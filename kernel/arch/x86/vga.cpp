@@ -83,15 +83,16 @@ void VGATerminal::putat(char c, uint8_t color) {
 }
 
 void VGATerminal::putc(char c) {
-	putat(c, colors);
-	
-	// Newlines
 	if (c == '\n') {
 		++cursorY;
+		cursorX = 0;
+	} else {
+		putat(c, colors);
+		++cursorX;
 	}
 
 	// Wraparound
-	if (++cursorX == vga_width) {
+	if (cursorX + 1 == vga_width) {
 		cursorX = 0;
 		if (++cursorY == vga_height) {
 			cursorY = 0;
