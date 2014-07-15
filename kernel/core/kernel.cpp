@@ -6,9 +6,12 @@
 
 extern "C"
 void kmain() {
-	VGATerminal terminal = VGATerminal();
-	terminal.setColors(VGATerminal::LightMagenta, VGATerminal::LightCyan);
-	terminal.clear();
-	terminal.setCursor(0,0);
-	terminal.puts("Hello protected mode world!");
+	IO io = IO();
+	io.terminal.setColors(VGATerminal::Black, VGATerminal::LightGrey);
+	io.terminal.clear();
+	io.terminal.setCursor(0,0);
+	io.terminal.puts(KERNEL_NAME " - " KERNEL_VERSION " -- " KERNEL_DATE " " KERNEL_TIME "\n");
+	io.terminal.puts("This is a second line!\n");
+	io.terminal.putc('\n');
+	io.terminal.puts("And a third (actually fourth) line! Isn't this exciting?\n");
 }
