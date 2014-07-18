@@ -64,7 +64,7 @@ struct IntRegs;
 
 void __attribute__((noreturn)) __stack_chk_fail()
 {
-io.print("Buffer Overflow (SSP Signal)\n");
+io.terminal.print("Buffer Overflow (SSP Signal)\n");
 for(;;) ;
 }
 
