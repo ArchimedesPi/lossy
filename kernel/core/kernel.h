@@ -5,6 +5,7 @@
 #include <runtime/string.h>
 #include <runtime/memory.h>
 #include <runtime/atoi.h>
+#include <runtime/alloc.h>
 
 // libGCC
 #include <stddef.h>
