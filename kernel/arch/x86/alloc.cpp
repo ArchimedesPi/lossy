@@ -96,11 +96,10 @@ extern "C" {
 	/* free memory block */
 	void kfree(void *v_addr) {
 		if (v_addr==(void*)0)
-		return;
+			return;
 
 		struct kmalloc_header *chunk, *other;
 
-		/* On libere le bloc alloue */
 		chunk =
 		(struct kmalloc_header *) ((u32)v_addr -
 		sizeof(struct kmalloc_header));
@@ -108,9 +107,6 @@ extern "C" {
 
 		kmalloc_used -= chunk->size;
 
-		/*
-		* Merge free block with next free block
-		*/
 		while ((other =
 		(struct kmalloc_header *) ((char *) chunk + chunk->size))
 		&& other < (struct kmalloc_header *) kern_heap
