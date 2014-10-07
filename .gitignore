@@ -21,8 +21,5 @@
 *.app
 
 # The compiled OS
-c.img
-lossy.elf
-
-
-lossy.img
+*.img
+*.elf
