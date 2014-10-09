@@ -11,7 +11,12 @@ NASM=nasm
 RUSTC=rustc
 # Linker. Independent of arch because of same reasons in QEMU.
 LD=i386-elf-ld
+# Name of the output image
+OUTPUT_IMG=lossy.img
+# Architecture. Used to do things like choose src/arch/<type>
+ARCH=i386
 
+-include config.mk
 
 # Tell Make that the following names are *not filenames* and should *never* be parsed as such
 .PHONY: all run debugrun
@@ -19,5 +24,5 @@ LD=i386-elf-ld
 # Run everything in this order. Called by default when only `make` is executed.
 all: run
 
-run:
-	$(QEMU) 
+run: $(OUTPUT_IMG)
+	$(QEMU) $<
