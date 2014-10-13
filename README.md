@@ -16,4 +16,4 @@ Find something to do (the [issues](https://github.com/ArchimedesPi/lossy/issues)
 fix it, and submit a PR. Oh, by the way, you might want to read about [hacking on Lossy](#hacking-on-the-code)
 
 ## Hacking on the code
-Meh, nothing here (yet)
+Bring it up with Vagrant: `vagrant up`.

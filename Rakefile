@@ -2,6 +2,9 @@ architecture = "i386"
 executable_filetype = "elf"
 ld = "#{architecture}-#{executable_filetype}-ld"
 rustc = "rustc"
+qemu = "qemu-system-#{architecture}"
+
+image_file = "lossy.img"
 
 
 task :default => [:build, :image, :run]
@@ -13,6 +16,7 @@ task :image => [:build] do
 end
 
 task :run => [:image] do
+  sh "#{qemu} #{image_file}"
 end
 
 task :print_config do
@@ -20,4 +24,5 @@ task :print_config do
   puts "executable_filetype: #{executable_filetype}"
   puts "ld: #{ld}"
   puts "rustc: #{rustc}"
+  puts "qemu: #{qemu}"
 end
