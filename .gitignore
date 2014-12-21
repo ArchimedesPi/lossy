@@ -23,3 +23,6 @@
 # The compiled OS
 *.img
 *.elf
+
+# Vagrant
+.vagrant/
