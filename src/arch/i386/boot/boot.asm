@@ -32,12 +32,8 @@ stack_top:
 section .text
 global _start
 _start:
-   ; By now, you are perhaps tired of assembly language. You realize some
-   ; things simply cannot be done in C, such as making the multiboot header in
-   ; the right section and setting up the stack. However, you would like to
-   ; write the operating system in a higher level language, such as C or C++.
-   ; To that end, the next task is preparing the processor for execution of
-   ; such code. C doesn't expect much at this point and we only need to set up
+   ; The next task is preparing the processor for execution of
+   ; such code. Rust doesn't expect much at this point and we only need to set up
    ; a stack. Note that the processor is not fully initialized yet and stuff
    ; such as floating point instructions are not available yet.
  
