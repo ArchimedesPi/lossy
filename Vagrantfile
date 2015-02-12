@@ -97,6 +97,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #   chef.json = { mysql_password: "foo" }
   # end
 
+
+  $script = %Q{
+    sudo apt-get update
+    sudo apt-get install nasm make build-essential grub qemu zip curl git -y
+    curl -s https://static.rust-lang.org/rustup.sh | sudo sh
+  }
+  config.vm.provision :shell, :inline => $script
+
+
   # Enable provisioning with chef server, specifying the chef server URL,
   # and the path to the validation key (relative to this Vagrantfile).
   #
