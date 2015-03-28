@@ -1,16 +1,26 @@
 CC=gcc
 LD=ld
 RUSTC=rustc
-NASM=nasm
+ASM=as
 QEMU=qemu-system-i386
+KERNEL=kernel.elf
 
-arch ?= i386
+RUSTCFLAGS=-O --target i686-unknown-linux-gnu -Z no-landing-pads --emit=obj
+ASMFLAGS=--march=i386 --32
 
-all: disk.img
+ARCH=i386
 
-.SUFFIXES: .o .rs .asm
+include ./src/$(ARCH)/Makefile
+include ./src/kernel/Makefile
 
 .PHONY: clean run
 
-.rs.o:
-	$(RUSTC) -O --target
+all: $(KERNEL)
+
+$(KERNEL): $(OBJS)
+
+%.o: %.asm
+				$(ASM) $(NASMFLAGS) -o $@ $<
+
+%.o: %.rs
+				$(RUSTC) $(RUSTCFLAGS) -o $@ $<
