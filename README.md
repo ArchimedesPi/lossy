@@ -9,7 +9,7 @@ An operating system written in [Rust](http://rust-lang.org),
 aiming to do more than echoing the keyboard to the screen ;)
 
 ## What can it do right now?
-Nothing. At all. (as of 7 Oct 2014)
+Nothing. At all. (this is quite ironic, given the previous statement)
 
 ## What do you plan to do with it?
 See [ROADMAP.md](https://github.com/ArchimedesPi/lossy/blob/master/ROADMAP.md)
