@@ -1,0 +1,1 @@
+OBJS := $(OBJS) src/arch/x86_64/boot.o
