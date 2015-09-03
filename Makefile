@@ -6,6 +6,7 @@ ARCH ?= x86_64
 
 ifeq ($(ARCH), x86_64)
 	TRIPLE ?= x86_64-elf
+	QEMUARCH ?= x86_64
 endif
 
 RUSTC ?= rustc
@@ -45,9 +46,12 @@ ifeq ($(ARCH), x86_64)
 	$(OBJCOPY) $@.elf64 -F elf32-i386 $@
 endif
 
+qemu:
+	qemu-system-$(QEMUARCH) -kernel $(KERNEL) -serial stdiop
+
 clean:
 	rm -rfv $(shell find src/ -type f -name "*.o")
-	rm $(KERNEL)
+	rm -f $(KERNEL)
 
 help:
 	@echo "Lossy Makefile"
