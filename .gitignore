@@ -1,6 +1,8 @@
 
 # Created by https://www.gitignore.io/api/rust,c,assembler
 
+build/
+
 ### Rust ###
 # Compiled files
 *.o
