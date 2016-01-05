@@ -10,6 +10,6 @@ bits 32 ; we're still in protected mode, so we're using 32-bit instructions
 start:
     ; print a confirmation that we've booted
 
-    mov dword [0xb0000], 0x2f4f2f4b ; this prints OK (prepacked VGA buffer value)
+    mov dword [0xb0000], 0x2f4b2f4f ; this prints OK (prepacked VGA buffer value)
 
     hlt ; halt the CPU
