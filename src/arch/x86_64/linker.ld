@@ -8,7 +8,7 @@ SECTIONS {
     .boot : /* boot header section */
     {
         /* add multiboot header */
-        *(.multiboot_header)
+        KEEP(*(.multiboot_header)) /* KEEP to make sure the gc doesn't delete it */
     }
 
     .text : /* code section */

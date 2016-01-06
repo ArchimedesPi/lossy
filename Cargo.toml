@@ -1,0 +1,10 @@
+[package]
+name = "lossy"
+version = "0.0.1"
+authors = ["Liam Marshall <liam@cpan.org>"]
+
+[lib]
+crate-type = ["staticlib"]
+
+[dependencies]
+rlibc = "0.1.4"
