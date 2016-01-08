@@ -13,6 +13,14 @@ SECTIONS {
 
     .text : /* code section */
     {
-        *(.text) /* pull in all input .text sections */
+        *(.text .text.*) /* pull in all input .text sections */
+    }
+
+    .rodata : {
+        *(.rodata .rodata.*)
+    }
+
+    .data.rel.ro : {
+        *(.data.rel.ro.local*) *(.data.rel.ro .data.rel.ro.*)
     }
 }
