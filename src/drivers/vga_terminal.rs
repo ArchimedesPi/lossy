@@ -1,6 +1,25 @@
 use core::ptr::Unique;
 use core::fmt;
-use core::fmt::Write;
+use spin::Mutex;
+
+pub static WRITER: Mutex<BufferWriter> = Mutex::new(BufferWriter {
+    column_position: 0, row_position: 0,
+    color_code: ColorCode::new(Color::LightGreen, Color::Black),
+    buffer: unsafe { Unique::new(0xb8000 as *mut _) },
+});
+
+macro_rules! println {
+    ($fmt:expr) => (print!(concat!($fmt, "\n")));
+    ($fmt:expr, $($arg:tt)*) => (print!(concat!($fmt, "\n"), $($arg)*));
+}
+
+macro_rules! print {
+    ($($arg:tt)*) => ({
+            use core::fmt::Write;
+            $crate::drivers::vga_terminal::WRITER.lock().write_fmt(format_args!($($arg)*)).unwrap();
+    });
+}
+
 
 #[allow(dead_code)]
 #[repr(u8)]
@@ -26,19 +45,20 @@ pub enum Color {
 #[derive(Clone, Copy)]
 pub struct ColorCode(u8);
 impl ColorCode {
-    const fn new(foreground: Color, background: Color) -> ColorCode {
+    pub const fn new(foreground: Color, background: Color) -> ColorCode {
         ColorCode((background as u8) << 4 | (foreground as u8))
     }
 }
 
 #[repr(C)]
+#[derive(Clone, Copy)]
 struct BufferCharacter {
     ascii_character: u8,
     color_code: ColorCode,
 }
 
-const BUFFER_HEIGHT: usize = 25;
-const BUFFER_WIDTH: usize = 80;
+pub const BUFFER_HEIGHT: usize = 25;
+pub const BUFFER_WIDTH: usize = 80;
 
 struct Buffer {
     characters: [[BufferCharacter; BUFFER_WIDTH]; BUFFER_HEIGHT],
@@ -96,6 +116,37 @@ impl BufferWriter {
     fn new_line(&mut self) {
         self.column_position = 0;
         self.row_position += 1;
+
+        if self.row_position >= BUFFER_HEIGHT {
+            self.scroll();
+        }
+    }
+
+    fn clear_row(&mut self, row: usize) {
+        self.buffer().characters[row] = [BufferCharacter {ascii_character: b' ', color_code: self.color_code}; BUFFER_WIDTH];
+    }
+
+    pub fn clear_screen(&mut self) {
+        self.buffer().characters = [[BufferCharacter {ascii_character: b' ', color_code: self.color_code}; BUFFER_WIDTH]; BUFFER_HEIGHT];
+    }
+
+    fn scroll(&mut self) {
+        for row in 0..(BUFFER_HEIGHT - 1) {
+            let buffer = self.buffer();
+            buffer.characters[row] = buffer.characters[row + 1];
+        }
+
+        self.clear_row(BUFFER_HEIGHT - 1);
+        self.column_position = 0;
+        self.row_position = BUFFER_HEIGHT - 1;
+    }
+
+    pub fn set_color_code(&mut self, color_code: ColorCode) {
+        self.color_code = color_code;
+    }
+
+    pub fn get_color_code(&self) -> ColorCode {
+        self.color_code
     }
 }
 
@@ -106,14 +157,4 @@ impl fmt::Write for BufferWriter {
         }
         Ok(())
     }
-}
-
-pub fn test() {
-    let mut writer = BufferWriter {
-        column_position: 0, row_position: 0,
-        color_code: ColorCode::new(Color::Green, Color::Black),
-        buffer: unsafe { Unique::new(0xb8000 as *mut _) },
-    };
-
-    write!(writer, "Hello world! 2 + 2 = {}", 2+2);
 }
