@@ -22,7 +22,7 @@ pub extern fn kernel_main(multiboot_header_address: usize) {
 
     let boot_info = unsafe { multiboot2::load(multiboot_header_address) };
     let memory_map_tag = boot_info.memory_map_tag().expect("Multiboot2 header: Memory map tag required!");
-    let elf_sections_tag = boot_info.elf_sections_tag().expect("Multiboot2 header: ELF sections tag required");
+    let elf_sections_tag = boot_info.elf_sections_tag().expect("Multiboot2 header: ELF sections tag required!");
 
     let kernel_start = elf_sections_tag.sections().map(|s| s.addr)
         .min().unwrap();
@@ -61,7 +61,7 @@ pub extern fn kernel_main(multiboot_header_address: usize) {
     unsafe {
         pic::PICS.lock().initialize();
     }
-    println!("initialized PICs");
+    println!("Initialized PICs (hopefully successfully)");
 
     loop {}
 }
