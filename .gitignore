@@ -2,6 +2,8 @@
 # Created by https://www.gitignore.io/api/rust,c,assembler
 
 build/
+libcore/
+rustc-nightly-src.tar.gz
 
 ### Rust ###
 # Compiled files
