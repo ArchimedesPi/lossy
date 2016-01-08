@@ -26,6 +26,8 @@ bits 32 ; we're still in protected mode, so we're using 32-bit instructions
 start:
     mov esp, stack_top ; point the stack pointer at the top of the stack
 
+    mov edi, ebx ; move the multiboot header address to a register that gets passed into Rust
+
     call check_multiboot ; check to see if multiboot loaded us, crash if it didn't
     call check_cpuid ; check if we're on a supported CPU, hang if not
     call check_long_mode ; make sure we're on a 64 bit platform, hang if not
