@@ -16,7 +16,7 @@ macro_rules! println {
 macro_rules! print {
     ($($arg:tt)*) => ({
             use core::fmt::Write;
-            $crate::drivers::vga_terminal::WRITER.lock().write_fmt(format_args!($($arg)*)).unwrap();
+            $crate::arch::x86_64::drivers::vga_terminal::WRITER.lock().write_fmt(format_args!($($arg)*)).unwrap();
     });
 }
 

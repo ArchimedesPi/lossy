@@ -9,10 +9,10 @@ extern crate multiboot2;
 
 mod memory;
 #[macro_use]
-mod drivers;
+mod arch;
 
-use drivers::vga_terminal;
-
+use arch::x86_64::drivers::vga_terminal;
+use arch::x86_64::drivers::pic;
 
 #[no_mangle]
 pub extern fn kernel_main(multiboot_header_address: usize) {
@@ -58,6 +58,10 @@ pub extern fn kernel_main(multiboot_header_address: usize) {
         }
     }
 
+    unsafe {
+        pic::PICS.lock().initialize();
+    }
+    println!("initialized PICs");
 
     loop {}
 }
