@@ -7,6 +7,8 @@ extern crate rlibc;
 extern crate spin;
 extern crate multiboot2;
 
+mod memory;
+#[macro_use]
 mod drivers;
 
 use drivers::vga_terminal;
@@ -43,6 +45,18 @@ pub extern fn kernel_main(multiboot_header_address: usize) {
 
     println!("kernel_start = 0x{:x}, kernel_end = 0x{:x}", kernel_start, kernel_end);
     println!("multiboot_start = 0x{:x}, multiboot_end = 0x{:x}", multiboot_start, multiboot_end);
+
+    let mut frame_allocator = memory::AreaFrameAllocator::new(
+        kernel_start as usize, kernel_end as usize, multiboot_start,
+        multiboot_end, memory_map_tag.memory_areas());
+
+    for i in 0.. {
+        use memory::FrameAllocator;
+        if let None = frame_allocator.allocate_frame() {
+            println!("allocated {} frames", i);
+            break;
+        }
+    }
 
 
     loop {}
