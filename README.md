@@ -32,7 +32,15 @@ Find something to do (the [issues](https://github.com/ArchimedesPi/lossy/issues)
 fix it, and submit a PR. Oh, by the way, you might want to read about [hacking on Lossy](#hacking-on-the-code).
 
 ## Hacking on the code
-You need Rust installed. Get it through [multirust](https://github.com/brson/multirust). After installation, run `multirust override nightly` in the project directory.
+You need the following dependencies:
+- `grub-mkrescue`
+- `xorriso`
+- `mtools`
+- `nasm`
+- qemu
+- Rust
+
+Get Rust through [multirust](https://github.com/brson/multirust). After installation, run `multirust override nightly` in the project directory.
 Run `make patch_libcore` to patch the nofp patch into libcore.
 Then run `make runtime` to build libcore.
 
