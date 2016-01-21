@@ -24,8 +24,16 @@ aiming to do more than echoing the keyboard to the screen ;)
 ## What can it do right now?
 Nothing. At all. (this is quite ironic, given the previous statement)
 
-## What do you plan to do with it?
-See [ROADMAP.md](https://github.com/ArchimedesPi/lossy/blob/master/ROADMAP.md)
+## Roadmap
+- [x] - Build system
+- [x] - Bootable do-nothing system
+- [x] - Video buffer driver
+- [x] - Page frame allocator
+- [x] - Interrupts
+- [ ] - Keyboard driver
+- [ ] - Allocator
+- [ ] - Proper stack/heap
+- [ ] - Switching out of BIOS video
 
 ## How can I help?
 Find something to do (the [issues](https://github.com/ArchimedesPi/lossy/issues) will help with that),
