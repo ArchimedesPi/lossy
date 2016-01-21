@@ -33,6 +33,7 @@ fix it, and submit a PR. Oh, by the way, you might want to read about [hacking o
 
 ## Hacking on the code
 You need Rust installed. Get it through [multirust](https://github.com/brson/multirust). After installation, run `multirust override nightly` in the project directory.
-Then run `make runtime` to build libcore (with some patches applied).
+Run `make patch_libcore` to patch the nofp patch into libcore.
+Then run `make runtime` to build libcore.
 
 Following this setup, you can simply execute `make run` to build and run in QEMU.
