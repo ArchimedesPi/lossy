@@ -1,6 +1,11 @@
 # Roadmap
 
-## Short-term
-- [ ] - Build system
-- [ ] - Bootable do-nothing system
-- [ ] - Writing to screen
+- [x] - Build system
+- [x] - Bootable do-nothing system
+- [x] - Video buffer driver
+- [x] - Page frame allocator
+- [x] - Interrupts
+- [ ] - Keyboard driver
+- [ ] - Allocator
+- [ ] - Proper stack/heap
+- [ ] - Switching out of BIOS video
