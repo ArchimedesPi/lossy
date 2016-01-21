@@ -13,6 +13,9 @@ mod arch;
 
 use arch::x86_64::drivers::vga_terminal;
 use arch::x86_64::drivers::pic;
+use arch::x86_64::drivers::idt;
+use arch::x86_64::drivers::keyboard;
+
 
 #[no_mangle]
 pub extern fn kernel_main(multiboot_header_address: usize) {
@@ -59,9 +62,8 @@ pub extern fn kernel_main(multiboot_header_address: usize) {
     }
 
     unsafe {
-        pic::PICS.lock().initialize();
+        idt::install_idt();
     }
-    println!("Initialized PICs (hopefully successfully)");
 
     loop {}
 }
