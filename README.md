@@ -32,4 +32,7 @@ Find something to do (the [issues](https://github.com/ArchimedesPi/lossy/issues)
 fix it, and submit a PR. Oh, by the way, you might want to read about [hacking on Lossy](#hacking-on-the-code).
 
 ## Hacking on the code
-*todo*
+You need Rust installed. Get it through [multirust](https://github.com/brson/multirust). After installation, run `multirust override nightly` in the project directory.
+Then run `make runtime` to build libcore (with some patches applied).
+
+Following this setup, you can simply execute `make run` to build and run in QEMU.
