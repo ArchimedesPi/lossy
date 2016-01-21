@@ -1,12 +1,10 @@
 // programmable interrupt controller driver
-// be very, very, very, very careful with this
-// literally everything is marked unsafe for a /very/ good reason.
 
 use arch::x86_64::drivers::io_ports::UnsafePort;
 use spin::Mutex;
 
 pub static PICS: Mutex<ChainedPics> = Mutex::new(unsafe {
-    ChainedPics::new(0x20, 0x28)
+    ChainedPics::new(0x20, 0x28) // 0x20 == 32, we're mapping up beyond the x86 fault codes.
 });
 
 const CMD_END_OF_INTERRUPT: u8 = 0x20;
@@ -15,7 +13,7 @@ const CONF_ICW1_INIT: u8 = 0x10;
 const CONF_ICW1_ICW4: u8 = 0x01;
 const CONF_ICW4_8086: u8 = 0x01;
 
-struct Pic {
+pub struct Pic {
     offset: u8, // interrupt mapping offset
     command: UnsafePort<u8>,
     data: UnsafePort<u8>,
@@ -29,10 +27,14 @@ impl Pic {
     unsafe fn end_of_interrupt(&mut self) {
         self.command.write(CMD_END_OF_INTERRUPT);
     }
+
+    pub unsafe fn set_mask(&mut self, mask: u8) {
+        self.data.write(mask);
+    }
 }
 
 pub struct ChainedPics {
-    pics: [Pic; 2],
+    pub pics: [Pic; 2],
 }
 
 impl ChainedPics {
@@ -100,6 +102,40 @@ impl ChainedPics {
                 self.pics[1].end_of_interrupt();
             }
             self.pics[0].end_of_interrupt();
+        }
+    }
+
+    pub unsafe fn set_mask_for_irq(&mut self, irq: u8, masked: bool) {
+        let pic: &mut Pic;
+        let mapped_irq: u8;
+
+        if irq < 8 {
+            pic = &mut self.pics[0];
+            mapped_irq = irq;
+        } else {
+            pic = &mut self.pics[1];
+            mapped_irq = irq - 8;
+        }
+
+        let current_mask = pic.data.read();
+
+        match masked {
+            true => pic.data.write(current_mask | (1 << mapped_irq)),
+            false => pic.data.write(current_mask & !(1 << mapped_irq)),
+        }
+    }
+
+    pub unsafe fn mask_irq(&mut self, irq: u8) {
+        self.set_mask_for_irq(irq, true);
+    }
+
+    pub unsafe fn unmask_irq(&mut self, irq: u8) {
+        self.set_mask_for_irq(irq, false);
+    }
+
+    pub unsafe fn mask_all_irqs(&mut self) {
+        for pic in &mut self.pics {
+            pic.data.write(0xff);
         }
     }
 }
