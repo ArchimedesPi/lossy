@@ -24,7 +24,14 @@ clean:
 	rm -r target
 
 run: $(iso)
-	qemu-system-x86_64 -cdrom $(iso)
+	qemu-system-x86_64 -cdrom $(iso) -s
+
+run-triplefault: $(iso)
+	qemu-system-x86_64 -cdrom $(iso) -no-reboot -d int -s
+
+debug: $(iso)
+	qemu-system-x86_64 -cdrom $(iso) -s -S
+
 
 iso: $(iso)
 
