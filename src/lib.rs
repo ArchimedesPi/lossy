@@ -9,9 +9,9 @@ extern crate multiboot2;
 extern crate x86;
 #[macro_use] extern crate bitflags;
 
-mod memory;
 #[macro_use]
 mod arch;
+mod memory;
 
 use arch::x86_64::drivers::vga_terminal;
 use arch::x86_64::drivers::pic;
