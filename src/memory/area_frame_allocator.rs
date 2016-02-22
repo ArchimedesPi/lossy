@@ -61,7 +61,7 @@ impl FrameAllocator for AreaFrameAllocator {
                 self.next_free_frame = Frame { number: self.multiboot_end.number + 1};
             } else {
                 // this frame is actually free! yay!
-                self.next_free_frame.number += 1; // bump the frame number by 1
+                self.next_free_frame.number += 1; // bump the frame pointer by 1
                 return Some(frame);
             }
 
